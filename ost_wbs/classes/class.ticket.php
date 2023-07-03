@@ -189,7 +189,7 @@ class Ticket
             $ticketInfo = self::compileResults($printTicketInfo);
 
             // Check if there are some results in the array
-            if(!$result){
+            if(!$result && !$ticketInfo){
                 throw new Exception("No items found.");
             }
 
