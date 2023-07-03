@@ -41,6 +41,7 @@ class User
                     array_push($result,
                         array(
                             'user_id'=>$PrintUsers->id,
+                            'org_id'=>$PrintUsers->org_id,
                             'name'=>utf8_encode($PrintUsers->name),
                             'created'=>$PrintUsers->created
                       ));   
@@ -109,6 +110,7 @@ class User
                     array_push($result,
                         array(
                             'user_id'=>$PrintUsers->id,
+                            'org_id'=>$PrintUsers->org_id,
                             'name'=>utf8_encode($PrintUsers->name),
                             'created'=>$PrintUsers->created
                       ));     
