@@ -176,16 +176,25 @@ class Ticket
             $result = array();
             $numRows = $getTickets->num_rows;
             
-            // Fetch data
+            // Fetch ticket thread data
             while($PrintTickets = $getTickets->fetch_object()){ array_push($result, self::compileResults($PrintTickets)); }
-            
+
+            // Get ticket info (actual user ID, etc.)
+            $getTicketInfo = $mysqli->query("SELECT * FROM ".TABLE_PREFIX."ticket WHERE ".TABLE_PREFIX."ticket.ticket_id = '$tID'");
+            $printTicketInfo = $getTicketInfo->fetch_object();
+            // the ost_ticket table doesn't have a Subject, Title or Body
+            $printTicketInfo->subject = "";
+            $printTicketInfo->title = "";
+            $printTicketInfo->body = "";
+            $ticketInfo = self::compileResults($printTicketInfo);
+
             // Check if there are some results in the array
             if(!$result){
                 throw new Exception("No items found.");
             }
 
             // build return array
-            $returnArray = array('total' => $numRows, 'tickets' => $result); 
+            $returnArray = array('info' => $ticketInfo, 'total' => $numRows, 'tickets' => $result); 
             
             // Return values
             return $returnArray;  
